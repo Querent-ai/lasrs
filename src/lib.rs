@@ -18,6 +18,7 @@ use util::{metadata, property, remove_comment, SPACES, SPACES_AND_DOT};
 pub use util::WellProp;
 
 /// Represents a parsed well log file
+#[derive(Debug, Clone, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
 pub struct Las {
     /// blob holds the String data read from the file
     /// ## Note
