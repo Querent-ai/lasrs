@@ -48,6 +48,21 @@ impl Las {
         Self { blob }
     }
 
+    /// Returns a `Las` read from bytes as Vec<u8>
+    /// ## Arguments
+    /// `bytes` - Vec<u8> representing the bytes of a las file
+    /// ## Example
+    /// ```
+    /// use lasrs::Las;
+    /// let bytes = include_bytes!(".././sample/example.las").to_vec();
+    /// let log = Las::from_bytes(bytes);
+    /// assert_eq!(&log.blob[..=7], "~VERSION");
+    /// ```
+    pub fn from_bytes(bytes: Vec<u8>) -> Self {
+        let blob = String::from_utf8(bytes).expect("Invalid UTF-8 sequence in bytes");
+        Self { blob }
+    }
+
     /// Returns `f64` representing the version of Las specification
     ///
     /// ## Example
