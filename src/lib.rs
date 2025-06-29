@@ -266,6 +266,36 @@ impl Las {
         property(&self.blob, "~W").unwrap_or_default()
     }
 
+    /// Returns `Option<String>` representing the well name from the ~W (well) section
+    ///
+    /// ## Example
+    ///
+    /// ```
+    /// use lasrs::Las;
+    /// let log = Las::new("./sample/A10.las");
+    /// assert_eq!(log.well_name(), Some("A10".to_string()));
+    /// ```
+    pub fn well_name(&self) -> Option<String> {
+        self.well_info()
+            .get("WELL")
+            .map(|well_prop| well_prop.value.trim().to_string())
+    }
+
+    /// Returns `Option<String>` representing the UWI (Unique Well Identifier) from the ~W (well) section
+    ///
+    /// ## Example
+    ///
+    /// ```
+    /// use lasrs::Las;
+    /// let log = Las::new("./sample/A10.las");
+    /// assert_eq!(log.well_id(), Some("02c62c82-552d-444d-bf6b-69cd07376368".to_string()));
+    /// ```
+    pub fn well_id(&self) -> Option<String> {
+        self.well_info()
+            .get("UWI")
+            .map(|well_prop| well_prop.value.trim().to_string())
+    }
+
     /// Returns `HashMap<String, WellProp>` containing all the `WellProp`(s) in a ~P (parameter) section
     ///
     /// ## Example
